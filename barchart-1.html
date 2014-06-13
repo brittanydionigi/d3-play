@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <title>d3 play</title>
+    <style type="text/css">
+    .chart {
+      background-color: #eee;
+      padding: 20px;
+      border: 1px solid #e8e8e8;
+    }
+    .chart div {
+      font: 10px sans-serif;
+      overflow:hidden;
+      background-color: steelblue;
+      text-align: left;
+      text-indent: 5px;
+      height: 23px;
+      line-height: 23px;
+      padding: 0px;
+      margin: 1px;
+      color: white;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="chart"></div>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var data = [8, 10, 12, 14, 16, 18];
+        var x = d3.scale.linear()
+          .domain([0, d3.max(data)])
+          .range([0, 800]);
+
+        var xt = d3.scale.linear()
+          .domain([0, d3.max(data)])
+          .range([0, 10]);
+
+        d3.select(".chart")
+          .selectAll("div") // select the elements we want to exist
+            .data(data) // join the data to our selected div elements
+            /* selection is empty so the update/exit selections are also empty. we only need to
+              * handle the enter selection, which represents new data that had no existing element.
+              * so all the data in .data(data) is NEW since none of it is bound to an element already. */
+          .enter().append("div") // append missing elements to our data enter selection
+            .style("width", function(d, i) { return x(d) + "px"; }) // d = our data value appended to our selection, i = index of our node in the selection
+            .style("padding", function(d, i) { return "0px " + xt(d) + "px"; })
+            .text(function(d) {
+              if (7 < d && d < 10) { return '1st Per.'; }
+              if (14 < d && d < 18) { return '2nd Per.'; }
+              else { return null }
+            });
+
+    </script>
+  </body>
+</html>

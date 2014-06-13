@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <title>d3 play</title>
+    <style type="text/css">
+    .chart {
+      background-color: #eee;
+      padding: 20px;
+      border: 1px solid #e8e8e8;
+    }
+    .chart-2 rect {
+      fill: steelblue;
+    }
+    .chart-2 text {
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: end;
+    }
+    .chart-1 div {
+      font: 10px sans-serif;
+      overflow:hidden;
+      background-color: steelblue;
+      text-align: left;
+      text-indent: 5px;
+      height: 20px;
+      line-height: 20px;
+      padding: 0px;
+      margin: 1px;
+      color: white;
+    }
+    </style>
+  </head>
+  <body>
+    <svg class="chart chart-2"></svg>
+    <br /><br /><br />
+    <div class="chart chart-1"></div>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+    var margin = {top: 20, right: 30, bottom: 30, left: 40},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+
+        var data = [8, 10, 12, 14, 16, 18];
+        var x = d3.scale.linear()
+          .domain([0, d3.max(data)])
+          .range([height, 0]);
+
+        var xt = d3.scale.ordinal()
+          .domain([0, d3.max(data)])
+          .rangeRoundBands([0, width], .1);
+
+        var xAxis = d3.svg.axis()
+          .scale(xt)
+          .orient("bottom")
+
+
+        var chart = d3.select('.chart-2')
+          .attr("height", height + margin.top + margin.bottom)
+          .attr("width", width + margin.left + margin.right)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var bar = chart.selectAll(".bar")
+          .data(data)
+          .enter().append("rect")
+            .attr("transform", function(d, i) { return "translate(" + (i * 150) + ", 0)"; })
+            .attr("class","bar")
+            .attr("y", function(d) { return x(d); })
+            .attr("height", function(d, i) { return (height  - x(d)) + "px"; })
+            .attr("width", 145)
+
+          bar.append('text')
+            .attr('y', function(d) { return x(d) + 10; })
+            .attr('x', "19px")
+            .attr('dy', ".75em")
+            .text(function(d) {
+              return d;
+            })
+
+          chart.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+
+        d3.select(".chart-1")
+          .selectAll("div") // select the elements we want to exist
+            .data(data) // join the data to our selected div elements
+            /* selection is empty so the update/exit selections are also empty. we only need to
+              * handle the enter selection, which represents new data that had no existing element.
+              * so all the data in .data(data) is NEW since none of it is bound to an element already. */
+          .enter().append("div") // append missing elements to our data enter selection
+            .style("width", function(d, i) { return x(d) + "px"; }) // d = our data value appended to our selection, i = index of our node in the selection
+            .style("padding", function(d, i) { return "0px " + xt(d) + "px"; })
+            .text(function(d) {
+              if (7 < d && d < 10) { return '1st Per.'; }
+              if (14 < d && d < 18) { return '2nd Per.'; }
+              else { return null }
+            });
+
+    </script>
+  </body>
+</html>

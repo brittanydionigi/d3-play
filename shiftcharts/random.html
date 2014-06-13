@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Random</title>
+  </head>
+  <body>
+    <div id="data0"></div>
+    <br /><br />
+    <div id="data1"></div>
+    <br /><br />
+    <div id="data2"></div>
+    <br /><br />
+    <div id="data3"></div>
+    <br /><br />
+    <div id="data4"></div>
+    <br /><br />
+    <div id="data5"></div>
+    <br /><br />
+    <div id="data6"></div>
+    <br /><br />
+    <div id="data7"></div>
+    <br /><br />
+    <div id="data8"></div>
+    <br /><br />
+    <div id="data9"></div>
+    <br /><br />
+    <div id="data10"></div>
+    <br /><br />
+    <div id="data11"></div>
+    <br /><br />
+    <div id="data12"></div>
+    <br /><br />
+    <div id="data13"></div>
+    <br /><br />
+    <div id="data14"></div>
+    <br /><br />
+    <div id="data15"></div>
+    <br /><br />
+    <div id="data16"></div>
+    <br /><br />
+    <div id="data17"></div>
+    <br /><br />
+    <div id="data18"></div>
+    <br /><br />
+    <div id="data19"></div>
+    <br /><br />
+    <div id="data20"></div>
+    <br /><br />
+    <div id="data21"></div>
+    <br /><br />
+    <div id="data22"></div>
+    <br /><br />
+    <div id="data23"></div>
+    <br /><br />
+    <div id="data24"></div>
+    <br /><br />
+    <div id="data25"></div>
+
+    <script type="text/javascript">
+      function getRandomInt (min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      var shifts = [];
+
+      for (var i = 0; i < 40; i++) {
+        shifts.push(getRandomInt(0, 3600));
+      }
+
+      shifts = shifts.sort(function(a,b){return a-b});
+
+      var names = ["Diaz", "Pavelski", "Kessel", "Kessler","Quick","Zuccarello","Oshie","Lindstrom","Stone","Calvert",
+      "Nabokov","Stamkos","Meszaros","Leroy","Frattin","Rosen","Rakell","Brady","Mitchell","Carrick","Neuvirth","Schultz","Goucher","Switaj","Marleau","Brodeur"];
+
+
+      var div2 = document.getElementById("data2");
+      var html1;
+      var html2;
+
+      for (var p = 0; p < names.length; p++) {
+        var div = document.getElementById("data" + p);
+        var playerShift = '"player": "' + names[p] + '",<br />"team": "CGY",<br />"player_no": "#24",<br />"player_position": "C",<br />"total_toi": 1462,<br />"average_shift_length": 53.5,<br />"shifts": [';
+
+        for (var i = 0; i < (shifts.length - 1); i++) {
+          if (i % 2 === 0) {
+            playerShift += "<br />{ \"shift_start\": " + shifts[i] + ", \"shift_end\": " + shifts[i + 1] + ", \"goals\": 0, \"assists\": 0 },";
+          }
+          else {
+            playerShift += "<br />{ \"shift_start\": " + shifts[i] + ", \"shift_end\": " + shifts[i + 1] + ", \"goals\": 0, \"assists\": 0 },";
+          }
+        }
+
+        playerShift += "]<br />},"
+        div.innerHTML = playerShift;
+      }
+    </script>
+  </body>
+</html>
+

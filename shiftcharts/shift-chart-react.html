@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Shift Chart</title>
+    <style type="text/css">
+      body { font: 400 10px/18px "helvetica neue", sans-serif; }
+      #wrapper { width: 1300px; height: 400px; }
+      .axis path.domain { stroke-width: 0.5; stroke: #ccc; fill: none; }
+      .shift.TBL { fill: #6DABC4; }
+      .shift.DET { fill: #FFC967; }
+      .shift.goal { stroke-width: 2; }
+      .shift.TBL.G { stroke: rgb(26, 75, 96); stroke-width: 2px; }
+      .shift.DET.G { stroke: rgb(194, 136, 31); }
+      .D-fense { color: blue; }
+      .O-fense { color: red; }
+      ul.shifts { position: absolute; }
+      .strength { fill: pink; opacity: 0; }
+      ul, ul li { list-style-type: none; padding: 0px; margin: 0px; }
+      ul.shifts li p { display: inline-block; width: 90px; line-height: 22px; float: left; text-transform: uppercase; vertical-align: middle; margin: 0px; }
+    </style>
+  </head>
+  <body>
+    <input id="sortPlayers" type="checkbox"><label for="sortPlayers">Sort players</label>
+    <div id="wrapper"></div>
+    <div id="player-details"></div>
+
+
+    <script src="react.js"></script>
+    <script src="jquery.js"></script>
+<!--     // <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
+    <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="d3.js"></script>
+    <script type="text/javascript" src="sc.js"></script>
+    <script type="text/javascript" src="shift-chart-react.js"></script>
+  </body>
+</html>
